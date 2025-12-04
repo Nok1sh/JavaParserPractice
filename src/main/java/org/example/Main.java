@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        var players = CsvParser.parseCsvToList("fakePlayers.csv");
+        var players = new CsvParser("fakePlayers.csv");
         Resolver resolver = new Resolver(players);
         // task 1
         System.out.println("Task 1");

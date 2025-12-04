@@ -2,7 +2,9 @@ package org.example.resolver;
 
 import org.example.model.Player;
 import org.example.model.Position;
+import org.example.parser.CsvParser;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -11,8 +13,8 @@ public class Resolver implements IResolver {
 
     private final List<Player> players;
 
-    public Resolver(List<Player> players){
-        this.players = players;
+    public Resolver(CsvParser parser) throws IOException {
+        this.players = parser.parseCsvToList();
     }
 
     @Override
@@ -52,7 +54,7 @@ public class Resolver implements IResolver {
                 .collect(Collectors.toMap(
                         player -> player.position().toString(),
                         player -> player.toString(),
-                        (exist, replace) -> exist
+                        (existing, replacement) -> existing
                 ));
     }
 
@@ -80,7 +82,7 @@ public class Resolver implements IResolver {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
-                        (exist, replace) -> exist
+                        (existing, replacement) -> existing
                 ));
     }
 
@@ -132,7 +134,7 @@ public class Resolver implements IResolver {
                 .collect(Collectors.toMap(
                         Map.Entry::getValue,
                         Map.Entry::getKey,
-                        (exist, replace) -> exist,
+                        (existing, replacement) -> existing,
                         LinkedHashMap::new
                 ));
     }

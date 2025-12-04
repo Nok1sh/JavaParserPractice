@@ -10,7 +10,14 @@ import java.util.List;
 
 
 public class CsvParser {
-    public static List<Player> parseCsvToList(String pathString) throws IOException {
+
+    private String pathString;
+
+    public CsvParser(String pathString) {
+        this.pathString = pathString;
+    }
+
+    public List<Player> parseCsvToList() throws IOException {
 
         return Files.readAllLines(Paths.get(pathString))
                 .stream()
